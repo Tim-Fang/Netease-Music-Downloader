@@ -12,8 +12,8 @@ headers = {
 
 def download_json():
     f = json.loads(
-        open(os.path.dirname(os.path.realpath(__file__)) + "\\get.json",
-             encoding="utf-8").read())['result']['tracks']
+        open(os.path.dirname(os.path.realpath(__file__)) + "\\download\\get.json",
+             encoding="utf-8").read())['playlist']['tracks']
     num = 0
     oknum = 0
     for index in f:
@@ -22,7 +22,7 @@ def download_json():
               "/",
               len(f),
               " |",
-              "▮" * int(num / len(f) * 20) + " " * int(
+              "#" * int(num / len(f) * 20) + " " * int(
                   (len(f) - num) / len(f) * 20),
               "| ",
               round(num / len(f) * 100, 1),
@@ -49,9 +49,9 @@ def download_json():
             f_out = eyed3.load(song_name + ".mp3")
             f_out.initTag()
             f_out.tag.title = index['name']
-            f_out.tag.artist = index['artists'][0]['name']
-            f_out.tag.album = index['album']['name']
-            f_out.tag.album_artist = index['album']['artist']['name']
+            f_out.tag.artist = index['ar'][0]['name']
+            f_out.tag.album = index['al']['name']
+            f_out.tag.album_artist = index['ar'][0]['name']
             f_out.tag.track_num = num
             f_out.tag.save()
             oknum += 1
